@@ -67,19 +67,34 @@ public class Aplication {
 	
 	public int capturaDato() {
 		int dato = 0;
+		Boolean bandera = Boolean.FALSE;
 		try {
 			Scanner sc = new Scanner(System.in);
-			System.out.println("Por favor digite un numero primo: ");
+			System.out.println("Por favor digite un numero primo mayor o igual a 5: ");
 			dato = sc.nextInt();
-			if(!validaPrimo(dato)) {
-				System.out.println("El numero no es primo...");
-				dato = capturaDato();
-			}else if(dato > 4 ) {
-				
-			}
+			do {
+				if(dato<5) {
+					System.out.println("El numero es menor a 5...");
+					dato=0;
+					sc = new Scanner(System.in);
+					System.out.println("Por favor digite un numero primo mayor o igual a 5: ");
+					dato = sc.nextInt();
+				}else if(!validaPrimo(dato) ) {
+					System.out.println("El numero no es primo...");
+					dato=0;
+					sc = new Scanner(System.in);
+					System.out.println("Por favor digite un numero primo mayor o igual a 5: ");
+					dato = sc.nextInt();
+				}
+				else if(validaPrimo(dato) ) {
+					bandera = Boolean.TRUE;
+				}
+			} while (Boolean.FALSE.equals(bandera));
+
+
 		} catch (Exception e) {
 			log.log(Level.SEVERE, "Error: ", e);
-			dato = capturaDato();
+
 		}
 		return dato;
 	} 
@@ -91,9 +106,9 @@ public class Aplication {
 	 */
 	public Boolean validaPrimo(int dato) {
 		try {
-			for(int i = 2 ; i < (dato/2) ; i++) {
-				int primo = dato%i;
-				if(primo == 0) {
+			for(int i = 2 ; i * i <= dato ; i++) {
+
+				if(dato%i == 0) {
 					return Boolean.FALSE;
 				}
 			}
@@ -102,6 +117,8 @@ public class Aplication {
 		}
 		return Boolean.TRUE;
 	}
+
+
 	
 
 }
